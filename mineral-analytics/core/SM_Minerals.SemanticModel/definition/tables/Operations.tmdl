@@ -1,0 +1,45 @@
+table Operations
+	lineageTag: cdda2459-3529-494a-a15c-77fc315da4d4
+	sourceLineageTag: [dbo].[dim_operations]
+
+	column 'Operation ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 53a4ae3f-fa15-44a3-a37f-3e787d43e2da
+		sourceLineageTag: operation_type_id
+		summarizeBy: none
+		sourceColumn: operation_type_id
+
+		changedProperty = Name
+
+		changedProperty = SummarizeBy
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'Operation Type'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 508e5790-b604-4cd7-8344-d98a5c3fb3e3
+		sourceLineageTag: operation_type
+		summarizeBy: none
+		sourceColumn: operation_type
+
+		changedProperty = Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Operations = entity
+		mode: directLake
+		source
+			entityName: dim_operations
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,7 @@
+role Mettalurgist
+	modelPermission: read
+
+	tablePermission Developments = [Development Status] == "Plant" && [Development Status] == "Unknown"
+
+	annotation PBI_Id = 3b91d8946b504b21a41799b65f3f16fa
+

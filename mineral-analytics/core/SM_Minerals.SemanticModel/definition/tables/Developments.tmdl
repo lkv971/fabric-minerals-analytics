@@ -1,0 +1,45 @@
+table Developments
+	lineageTag: 808f896d-ea7a-4824-9c31-1faaed0efc22
+	sourceLineageTag: [dbo].[dim_developments]
+
+	column 'Development ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 53c7a2d6-cb93-496a-9103-d31d12991c59
+		sourceLineageTag: development_status_id
+		summarizeBy: none
+		sourceColumn: development_status_id
+
+		changedProperty = Name
+
+		changedProperty = IsHidden
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+	column 'Development Status'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ba4ebc04-72ee-47f0-bf16-83e0b97436c4
+		sourceLineageTag: development_status
+		summarizeBy: none
+		sourceColumn: development_status
+
+		changedProperty = Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Developments = entity
+		mode: directLake
+		source
+			entityName: dim_developments
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

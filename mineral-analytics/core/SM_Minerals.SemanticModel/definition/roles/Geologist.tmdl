@@ -1,0 +1,7 @@
+role Geologist
+	modelPermission: read
+
+	tablePermission Developments = [Development Status] == "Occurrence" && [Development Status] == "Prospect" && [Development Status] == "Unknown" && [Development Status] == "Producer" && [Development Status] == "Past Producer"
+
+	annotation PBI_Id = a781700a22ec4e80b6837a96b3f21ee5
+

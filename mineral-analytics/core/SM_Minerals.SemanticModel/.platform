@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SM_Minerals"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "198b9ccc-80c8-a257-4ccf-03bc26dfb6ec"
+  }
+}

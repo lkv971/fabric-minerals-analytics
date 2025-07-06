@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "USMineralsReport"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1a073ed3-2178-89b5-4f93-df84d5848c15"
+  }
+}

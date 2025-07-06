@@ -1,0 +1,45 @@
+table Commodities
+	lineageTag: fa622d71-a145-4e09-83d8-bb180371d897
+	sourceLineageTag: [dbo].[dim_commodities]
+
+	column 'Commodity ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: faaae17d-58c2-495b-9929-dd99f8f37815
+		sourceLineageTag: commodity_id
+		summarizeBy: none
+		sourceColumn: commodity_id
+
+		changedProperty = Name
+
+		changedProperty = SummarizeBy
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column Commodity
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: bbeb7d3f-0655-4093-84cb-5b83b72c8ba9
+		sourceLineageTag: commodity
+		summarizeBy: none
+		sourceColumn: commodity
+
+		changedProperty = Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Commodities = entity
+		mode: directLake
+		source
+			entityName: dim_commodities
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

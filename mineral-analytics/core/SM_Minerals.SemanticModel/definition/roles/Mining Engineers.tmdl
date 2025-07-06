@@ -1,0 +1,7 @@
+role 'Mining Engineers'
+	modelPermission: read
+
+	tablePermission Developments = [Development Status] == "Producer" && [Development Status] == "Past Producer" && [Development Status] == "Unknown"
+
+	annotation PBI_Id = 8ce30568d4dc4112b4bf19f3322ee24d
+

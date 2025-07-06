@@ -1,0 +1,160 @@
+table Minerals
+	lineageTag: d449c50a-4473-40ec-839e-16c4e5f6bd6b
+	sourceLineageTag: [dbo].[fact_minerals]
+
+	measure 'Total Commodities' = COUNT(Minerals[Commodity ID])
+		formatString: 0
+		displayFolder: Commodities Measures
+		lineageTag: e75acbea-e7b1-49a4-bc57-0f0389640cf9
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure 'Total Sites' = DISTINCTCOUNT(Minerals[Site ID])
+		formatString: 0
+		displayFolder: Sites Measures
+		lineageTag: 81f348e7-7444-41fe-9641-e132ce84668c
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure Exploration = CALCULATE([Total Sites], Developments[Development Status] = "Prospect")
+		formatString: 0
+		displayFolder: Sites Measures
+		lineageTag: f7308930-7928-438d-9c04-bc277855c5f3
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure 'Producing Mines' = CALCULATE([Total Sites], Developments[Development Status] = "Producer")
+		formatString: 0
+		displayFolder: Sites Measures
+		lineageTag: 36c789d1-8c40-44b0-9e0f-5a3670a1e685
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure 'Historic Mines' = CALCULATE([Total Sites], Developments[Development Status] = "Past Producer")
+		formatString: 0
+		displayFolder: Sites Measures
+		lineageTag: 4394a15f-110d-4947-8223-d95893c8ac6a
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure Plants = CALCULATE([Total Sites], Developments[Development Status] = "Plant")
+		formatString: 0
+		displayFolder: Sites Measures
+		lineageTag: 6da0e91e-df59-49e7-b5de-5a071e5489fb
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure Unspecified = CALCULATE([Total Sites], Developments[Development Status] = "Unknown")
+		formatString: 0
+		displayFolder: Sites Measures
+		lineageTag: 5fe86aad-07ca-4623-b200-de76c4038a9c
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure Occurrences = CALCULATE([Total Sites], Developments[Development Status] = "Occurrence")
+		formatString: 0
+		displayFolder: Sites Measures
+		lineageTag: 8b7f78be-f39f-4a31-942e-58c3bff69145
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	column 'Site ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: fc1b7491-5ff8-4fb0-922a-5e0e5930c37b
+		sourceLineageTag: site_id
+		summarizeBy: none
+		sourceColumn: site_id
+
+		changedProperty = SummarizeBy
+
+		changedProperty = Name
+
+		annotation SummarizationSetBy = User
+
+	column 'Commodity ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0775fd68-f598-4f3a-b403-e76e33493dee
+		sourceLineageTag: commodity_id
+		summarizeBy: none
+		sourceColumn: commodity_id
+
+		changedProperty = Name
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+	column 'Operation ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b05e7899-bc8d-47b2-82c2-e1eaa66f98b5
+		sourceLineageTag: operation_type_id
+		summarizeBy: none
+		sourceColumn: operation_type_id
+
+		changedProperty = Name
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+	column 'Development ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: cdea8eb6-e99e-4d1d-9c3d-99d10e101d20
+		sourceLineageTag: development_status_id
+		summarizeBy: none
+		sourceColumn: development_status_id
+
+		changedProperty = Name
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+	column 'Record Date'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 6569f299-8d48-4972-8aaa-429c428c20fb
+		sourceLineageTag: record_date
+		summarizeBy: none
+		sourceColumn: record_date
+
+		changedProperty = Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Minerals = entity
+		mode: directLake
+		source
+			entityName: fact_minerals
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

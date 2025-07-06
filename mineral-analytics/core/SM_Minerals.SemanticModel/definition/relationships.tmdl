@@ -1,0 +1,16 @@
+relationship a9f19009-b4b9-7470-bc4b-9c143a8cc2ea
+	fromColumn: Minerals.'Development ID'
+	toColumn: Developments.'Development ID'
+
+relationship 3ccde313-f6f1-5993-71bb-c8427fbe1722
+	fromColumn: Minerals.'Commodity ID'
+	toColumn: Commodities.'Commodity ID'
+
+relationship 25ccc353-b09c-3a06-f44f-88cab80bcca8
+	fromColumn: Minerals.'Site ID'
+	toColumn: Locations.'Sited ID'
+
+relationship 156f80bc-a3bd-b040-8b3e-573dcc60f3c3
+	fromColumn: Minerals.'Operation ID'
+	toColumn: Operations.'Operation ID'
+
