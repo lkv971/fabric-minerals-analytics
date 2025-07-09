@@ -20,7 +20,7 @@ table Minerals
 
 		changedProperty = DisplayFolder
 
-	measure Exploration = CALCULATE([Total Sites], Developments[Development Status] = "Prospect")
+	measure Exploration = CALCULATE([Total Sites], Minerals[Development ID] = 5)
 		formatString: 0
 		displayFolder: Sites Measures
 		lineageTag: f7308930-7928-438d-9c04-bc277855c5f3
@@ -29,7 +29,7 @@ table Minerals
 
 		changedProperty = DisplayFolder
 
-	measure 'Producing Mines' = CALCULATE([Total Sites], Developments[Development Status] = "Producer")
+	measure 'Producing Mines' = CALCULATE([Total Sites], Minerals[Development ID] = 4)
 		formatString: 0
 		displayFolder: Sites Measures
 		lineageTag: 36c789d1-8c40-44b0-9e0f-5a3670a1e685
@@ -38,7 +38,7 @@ table Minerals
 
 		changedProperty = DisplayFolder
 
-	measure 'Historic Mines' = CALCULATE([Total Sites], Developments[Development Status] = "Past Producer")
+	measure 'Historic Mines' = CALCULATE([Total Sites], Minerals[Development ID] = 2)
 		formatString: 0
 		displayFolder: Sites Measures
 		lineageTag: 4394a15f-110d-4947-8223-d95893c8ac6a
@@ -47,7 +47,7 @@ table Minerals
 
 		changedProperty = DisplayFolder
 
-	measure Plants = CALCULATE([Total Sites], Developments[Development Status] = "Plant")
+	measure Plants = CALCULATE([Total Sites], Minerals[Development ID] = 3)
 		formatString: 0
 		displayFolder: Sites Measures
 		lineageTag: 6da0e91e-df59-49e7-b5de-5a071e5489fb
@@ -56,7 +56,7 @@ table Minerals
 
 		changedProperty = DisplayFolder
 
-	measure Unspecified = CALCULATE([Total Sites], Developments[Development Status] = "Unknown")
+	measure Unspecified = CALCULATE([Total Sites], Minerals[Development ID] = 6)
 		formatString: 0
 		displayFolder: Sites Measures
 		lineageTag: 5fe86aad-07ca-4623-b200-de76c4038a9c
@@ -65,7 +65,7 @@ table Minerals
 
 		changedProperty = DisplayFolder
 
-	measure Occurrences = CALCULATE([Total Sites], Developments[Development Status] = "Occurrence")
+	measure Occurrences = CALCULATE([Total Sites], Minerals[Development ID] = 1)
 		formatString: 0
 		displayFolder: Sites Measures
 		lineageTag: 8b7f78be-f39f-4a31-942e-58c3bff69145
@@ -91,6 +91,7 @@ table Minerals
 
 	column 'Commodity ID'
 		dataType: int64
+		isHidden
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 0775fd68-f598-4f3a-b403-e76e33493dee
@@ -102,10 +103,13 @@ table Minerals
 
 		changedProperty = SummarizeBy
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = User
 
 	column 'Operation ID'
 		dataType: int64
+		isHidden
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: b05e7899-bc8d-47b2-82c2-e1eaa66f98b5
@@ -117,10 +121,13 @@ table Minerals
 
 		changedProperty = SummarizeBy
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = User
 
 	column 'Development ID'
 		dataType: int64
+		isHidden
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: cdea8eb6-e99e-4d1d-9c3d-99d10e101d20
@@ -131,6 +138,8 @@ table Minerals
 		changedProperty = Name
 
 		changedProperty = SummarizeBy
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = User
 
@@ -146,6 +155,86 @@ table Minerals
 		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		sourceProviderType: float
+		displayFolder: Location Coordinates
+		lineageTag: a71d3754-1d37-46db-9168-4ab55e217a24
+		sourceLineageTag: latitude
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: latitude
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		changedProperty = SummarizeBy
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitude
+		dataType: double
+		sourceProviderType: float
+		displayFolder: Location Coordinates
+		lineageTag: 6b05c494-ddc4-4ec1-a273-1e8b89165f7e
+		sourceLineageTag: longitude
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: longitude
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		changedProperty = SummarizeBy
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column State
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 70e469bb-9ca2-4be0-8730-5e15f7205a24
+		sourceLineageTag: state
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: state
+
+		changedProperty = Name
+
+		changedProperty = DataCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Production Volume'
+		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		sourceProviderType: varchar(8000)
+		lineageTag: 2d71bdec-f21f-4a8d-a08f-bc13b6844a80
+		sourceLineageTag: production_volume
+		summarizeBy: none
+		sourceColumn: production_volume
+
+		changedProperty = Name
+
+		changedProperty = DataType
+
+		changedProperty = FormatString
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	partition Minerals = entity
 		mode: directLake

@@ -35,50 +35,6 @@ table Locations
 
 		annotation SummarizationSetBy = Automatic
 
-	column Latitude
-		dataType: double
-		sourceProviderType: float
-		displayFolder: Location Coordinates
-		lineageTag: d82dd91e-c961-4a6b-ae2f-b4eb46d1cb22
-		sourceLineageTag: latitude
-		dataCategory: Latitude
-		summarizeBy: none
-		sourceColumn: latitude
-
-		changedProperty = Name
-
-		changedProperty = SummarizeBy
-
-		changedProperty = DataCategory
-
-		changedProperty = DisplayFolder
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Longitude
-		dataType: double
-		sourceProviderType: float
-		displayFolder: Location Coordinates
-		lineageTag: 4d14ed27-5440-477f-b52d-a39652b4bc15
-		sourceLineageTag: longitude
-		dataCategory: Longitude
-		summarizeBy: none
-		sourceColumn: longitude
-
-		changedProperty = DisplayFolder
-
-		changedProperty = SummarizeBy
-
-		changedProperty = DataCategory
-
-		changedProperty = Name
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column State
 		dataType: string
 		sourceProviderType: varchar(8000)

@@ -123,7 +123,7 @@ location_window = Window.orderBy(col("site_name"))
 
 df_locations = df_minerals.select("site_name", "latitude", "longitude", "state").distinct() \
                           .withColumn("site_id", row_number().over(location_window))
-df_locations = df_locations["site_id", "site_name", "latitude", "longitude", "state"]
+df_locations = df_locations["site_id", "site_name", "state"]
 
 # METADATA ********************
 
@@ -179,12 +179,13 @@ df_developments = df_developments["development_status_id", "development_status"]
 
 # CELL ********************
 
-df_minerals= df_minerals.join(df_locations, on="site_name", how="inner") \
+df_minerals= df_minerals.join(df_locations.withColumnRenamed("state", "loc_state"), on="site_name", how="inner")\
                         .join(df_commodities, on="commodity", how="inner") \
                         .join(df_operations, on="operation_type", how="inner") \
                         .join(df_developments, on="development_status", how="inner") \
                         .withColumn("record_date", lit(None).cast(DateType())) \
-                        .select("site_id", "commodity_id", "operation_type_id", "development_status_id", "record_date")
+                        .withColumn("production_volume", lit(None).cast(StringType())) \
+                        .select("site_id", "state", "latitude", "longitude", "commodity_id", "operation_type_id", "development_status_id", "production_volume", "record_date")
 
 # METADATA ********************
 
@@ -195,11 +196,11 @@ df_minerals= df_minerals.join(df_locations, on="site_name", how="inner") \
 
 # CELL ********************
 
-df_locations.write.mode("overwrite").saveAsTable("dim_locations")
+df_locations.write.mode("overwrite").option("overwriteSchema", "true").saveAsTable("dim_locations")
 df_commodities.write.mode("overwrite").saveAsTable("dim_commodities")
 df_operations.write.mode("overwrite").saveAsTable("dim_operations")
 df_developments.write.mode("overwrite").saveAsTable("dim_developments")
-df_minerals.write.mode("overwrite").saveAsTable("fact_minerals")
+df_minerals.write.mode("overwrite").option("overwriteSchema", "true").saveAsTable("fact_minerals")
 
 # METADATA ********************
 
